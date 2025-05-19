@@ -1,1 +1,0 @@
-This is an app to visualize the data from NC News backend API.
