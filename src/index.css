@@ -5,61 +5,91 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #282D35;
-  color: white;
+  background-color: lightgrey;
+  color: black;
 }
 
 header {
-  height: 90px;
-  background-color: #21222A;
-  padding: 30px 25px;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background-color: #f30418;
+  padding: 20px 20px;
+  justify-content: space-between;
+}
+
+header > span {
+   display: flex;
+   align-items: center;
+}
+
+header > span > h3 {
+   margin-right: 5px;
 }
 
 nav {
+  background-color: darkgrey;
   display: flex;
   align-items: center;
   height: 100%;
 }
 
-nav > img {
-  width: 40px;
-  margin-right: 7px;
+a > img {
+  width: 55px;
+  margin-top: 3px;
+  margin-right: 15px;
 }
 
 nav > span {
-  color: #61DAFB;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  color: white;
   font-size: 1.4rem;
   font-weight: 700;
 }
 
-main {
-  padding: 60px 30px;
-  background-image: url(./assets/logo-react.svg);
-  background-repeat: no-repeat;
-  background-position: right center;
+a {
+  color: white;
+  text-decoration: none;
 }
 
-main > h1 {
+a:hover {
+  color: black;
+}
+
+main {
+  padding: 20px 30px;
+}
+
+h1 {
   margin: 0;
   font-size: 2.4rem;
 }
 
-.facts-list {
-  margin-top: 46px;
-  max-width: 400px;
+span {
+    margin: 10px;
+    color: white;
 }
 
-.facts-list > li {
-  padding-block: 10px;
-  line-height: 19px;
+article:hover {
+  background-color: darkgrey;
 }
 
-.facts-list > li::marker {
-  color: #61DAFB;
-  font-size: 1.5rem;
+article > p {
+  align-items: center;
 }
 
-footer {
-  background-color: #21222A;
-  padding: 30px 30px;
+article > p > img {
+  max-width: 10%;
+}
+
+article > p > span {
+  margin-left: 20px;
+  color: black
+}
+
+.topic-div > h2 {
+  margin: 2px;
+  border-bottom: 3px solid #f30418;
 }
