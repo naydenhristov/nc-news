@@ -19,12 +19,12 @@ header {
 }
 
 header > span {
-   display: flex;
-   align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 header > span > h3 {
-   margin-right: 5px;
+  margin-right: 5px;
 }
 
 nav {
@@ -68,8 +68,8 @@ h1 {
 }
 
 span {
-    margin: 10px;
-    color: white;
+  margin: 10px;
+  color: white;
 }
 
 article:hover {
@@ -80,16 +80,29 @@ article > p {
   align-items: center;
 }
 
-article > p > img {
+.small-image {
   max-width: 10%;
 }
+.big-image {
+  max-width: 40%;
+}
 
-article > p > span {
+.black-text {
   margin-left: 20px;
-  color: black
+  color: black;
+  font-weight: bold;
 }
 
 .topic-div > h2 {
   margin: 2px;
   border-bottom: 3px solid #f30418;
+}
+
+.info-line {
+  max-width: 50%;
+  padding: 5px;
+  align-items: center;
+  background-color: #79a6f5;
+  color: #0b0114;
+  font-weight: 200;
 }

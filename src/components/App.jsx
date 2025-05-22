@@ -1,11 +1,12 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, useParams } from "react-router";
 //import { useState } from "react";
 import { Header } from "./Header";
 import { NavBar } from "./NavBar";
 import { HomePage } from "./HomePage";
 import { ArticleCard } from "./ArticleCard";
 
-export const App = (article_id) => {
+export const App = () => {
+  
   return (
     <>
       <Header />
@@ -13,7 +14,7 @@ export const App = (article_id) => {
       <main>
         <Routes>
           <Route path="/articles/:topic?" element={<HomePage />}></Route>
-          <Route path="/articles/:article_id" element={<ArticleCard article_id={article_id} />}></Route>
+          <Route path="/article/:article_id" element={<ArticleCard />}></Route>
         </Routes>
       </main>
     </>
