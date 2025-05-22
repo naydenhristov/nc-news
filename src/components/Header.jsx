@@ -11,7 +11,7 @@ export const Header = () => {
         <h1>NC News</h1>
       </span>
       <span>
-        <h3>Sign In / Sign Up</h3>
+        <h4>Sign In / Sign Up</h4>
         <form action="submit">
           <input type="text" />
           <button value="search">Search</button>
