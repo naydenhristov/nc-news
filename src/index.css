@@ -9,7 +9,7 @@ body {
   color: black;
 }
 
-header {
+header, footer {
   display: flex;
   align-items: center;
   height: 60px;
@@ -76,15 +76,18 @@ article:hover {
   background-color: darkgrey;
 }
 
-article > p {
-  align-items: center;
-}
 
 .small-image {
   max-width: 10%;
 }
 .big-image {
-  max-width: 40%;
+  max-width: 30%;
+}
+
+.icon {
+  margin-top: 3px;
+  margin-left: 10px;
+  max-width: 12px;
 }
 
 .black-text {
@@ -99,10 +102,11 @@ article > p {
 }
 
 .info-line {
-  max-width: 50%;
+  max-width: 100%;
   padding: 5px;
   align-items: center;
   background-color: #79a6f5;
-  color: #0b0114;
-  font-weight: 200;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
 }
