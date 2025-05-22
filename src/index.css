@@ -9,7 +9,8 @@ body {
   color: black;
 }
 
-header, footer {
+header,
+footer {
   display: flex;
   align-items: center;
   height: 60px;
@@ -23,7 +24,7 @@ header > span {
   align-items: center;
 }
 
-header > span > h3 {
+header > span > h4 {
   margin-right: 5px;
 }
 
@@ -76,7 +77,6 @@ article:hover {
   background-color: darkgrey;
 }
 
-
 .small-image {
   max-width: 10%;
 }
@@ -106,6 +106,46 @@ article:hover {
   padding: 5px;
   align-items: center;
   background-color: #79a6f5;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.comments {
+  max-width: 100%;
+  margin: 20px 0px 0px;
+  padding: 0px;
+  align-items: center;
+  background-color: lightgrey;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-bottom: 3px solid #13049c;
+}
+
+.comment-span {
+  background-color: #13049c;
+  color: white;
+  margin-left: 0px;
+  margin-right: 20px;
+  padding: 5px;
+}
+
+.comment-card {
+  margin: 5px 0px;
+  border: 3px solid #13049c;
+}
+
+.comment-body {
+  margin: 0;
+  padding: 10px;
+}
+
+.comment-line {
+  max-width: 100%;
+  padding: 5px;
+  align-items: center;
+  background-color: #13049c;
   color: white;
   font-size: 0.75rem;
   font-weight: bold;
