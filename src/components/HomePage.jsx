@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import { getArticles } from "../api";
 import { useParams } from "react-router";
 import { Link } from "react-router";
-import { ArticleCard } from "./ArticleCard";
 
 export const HomePage = () => {
   const [articles, setArticles] = useState([]); //List of articles
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const topicName = useParams();
-  const topic = topicName.topic;
-  console.log(topic, "<---topic in HomePage.jsx");
+  const topic = useParams().topic;
 
     useEffect(() => {
       setLoading(true);
