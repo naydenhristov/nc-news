@@ -31,3 +31,13 @@ export const updateArticleById = (article_id) => {
         return(err);
     });
 };
+
+export const addCommentByArticleId = (article_id, username, comment) => { 
+    return ncNewsApi.post(`/articles/${article_id}/comments`, { username: username, body: comment })
+    .then(({data}) => {
+       return(data.article);
+    })
+    .catch((err) => {
+        return(err);
+    });
+};
