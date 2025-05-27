@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { getArticleById, getCommentsByArticleId, updateArticleById } from "../api";
+import {
+  getArticleById,
+  getCommentsByArticleId,
+  updateArticleById,
+  addCommentByArticleId
+} from "../api";
 import { useParams } from "react-router";
 import icon from "../assets/Thumb-up.png";
 
@@ -11,22 +16,40 @@ export const ArticleCard = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [hasVoted, setHasVoted] = useState(false);
+  const [addCommentClicked, setAddCommentClicked] = useState(false);
+  const [isCommentListChanged, setIsCommentListChanged] = useState(false);
   const article_id = useParams().article_id;
 
   function handleClickVote() {
     event.preventDefault();
-    if (!hasVoted) { 
+    if (!hasVoted) {
       setVotes(votes + 1);
       setHasVoted(true);
-      updateArticleById(article_id).then((updatedArticle) => {
-        console.log(updatedArticle, "<---updatedArticle");
-      } )
-      .catch((err) => {
-        console.log(err);
-      } ); 
+      updateArticleById(article_id)
+        .then((updatedArticle) => {
+          console.log(updatedArticle, "<---updatedArticle");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       setVotesMessage("You have already voted!");
     }
+  }
+
+  function clickAddCommentButton() {
+    event.preventDefault();
+    let isClicked = addCommentClicked;
+    isClicked ? setAddCommentClicked(false) : setAddCommentClicked(true);
+  }
+
+  function submitComment() {
+    event.preventDefault();
+    const inputs = document.getElementById("comment-form").elements;
+    const username = inputs["username"].value;
+    const comment =  inputs["comment"].value;
+    addCommentByArticleId(article_id, username, comment);
+    setIsCommentListChanged(true);
   }
 
   useEffect(() => {
@@ -38,6 +61,8 @@ export const ArticleCard = () => {
         getCommentsByArticleId(article_id)
           .then((commentsList) => {
             setComments(commentsList);
+            setIsCommentListChanged(false);
+            setAddCommentClicked(false);
           })
           .catch((err) => {
             setError(true);
@@ -47,7 +72,7 @@ export const ArticleCard = () => {
         setError(true);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [isCommentListChanged]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Sorry, something went wrong!</p>;
@@ -83,8 +108,45 @@ export const ArticleCard = () => {
       </div>
       <div className="comments">
         <span className="comment-span">Comments: {commentsCount}</span>
-        <button className="button">Add Comment</button>
+         {addCommentClicked ? 
+         <button onClick={clickAddCommentButton}>
+          Close Add Comment
+        </button> : <button onClick={clickAddCommentButton}>
+          Add Comment
+        </button> }
       </div>
+      {addCommentClicked ? (
+        <div className="add-comment">
+          <form id="comment-form">
+             <p className="p">
+              <label className="label" htmlFor="username">
+                Username:
+              </label>
+            </p>
+            <p className="p">
+              <input className="p" name="username" />
+            </p>
+            <p className="p">
+              <label className="label" htmlFor="comment">
+                Comment:
+              </label>
+            </p>
+            <p className="p">
+              <textarea
+                className="p"
+                name="comment"
+                rows="5"
+                cols="30"
+              ></textarea>
+            </p>
+            <button className="submit-button" onClick={submitComment}>
+              Submit
+            </button>
+          </form>
+        </div>
+      ) : (
+        <div></div>
+      )}
       <div>
         {comments.map((comment) => {
           const commentDate = new Date(comment.created_at).toDateString();
