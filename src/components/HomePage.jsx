@@ -23,7 +23,7 @@ export const HomePage = () => {
     }, []);
 
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Sorry, something went wrong!</p>;
+    if (error) return <p>Sorry, something went wrong in HomePage!</p>;
 
   return (
     <section>

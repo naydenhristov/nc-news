@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../contexts/User";
+//import Popup from "reactjs-popup";
 import {
   getArticleById,
   getCommentsByArticleId,
   updateArticleById,
-  addCommentByArticleId
+  addCommentByArticleId,
+  deleteCommentById,
 } from "../api";
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router";
 import icon from "../assets/Thumb-up.png";
 
 export const ArticleCard = () => {
@@ -13,11 +16,13 @@ export const ArticleCard = () => {
   const [comments, setComments] = useState([]);
   const [votes, setVotes] = useState(0);
   const [votesMessage, setVotesMessage] = useState("");
+  const [authorMessage, setAuthorMessage] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [hasVoted, setHasVoted] = useState(false);
   const [addCommentClicked, setAddCommentClicked] = useState(false);
   const [isCommentListChanged, setIsCommentListChanged] = useState(false);
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   const article_id = useParams().article_id;
 
   function handleClickVote() {
@@ -47,9 +52,24 @@ export const ArticleCard = () => {
     event.preventDefault();
     const inputs = document.getElementById("comment-form").elements;
     const username = inputs["username"].value;
-    const comment =  inputs["comment"].value;
+    const comment = inputs["comment"].value;
     addCommentByArticleId(article_id, username, comment);
+    setLoggedInUser(loggedInUser);
     setIsCommentListChanged(true);
+    setAuthorMessage("");
+  }
+
+  function deleteComment() {
+    event.preventDefault();
+    const commentID = event.target.value;
+    const commentAuthor = event.target.name;
+    if (loggedInUser === commentAuthor) {
+      deleteCommentById(commentID);
+      setIsCommentListChanged(true);
+      setAuthorMessage("");
+    } else {
+      setAuthorMessage("Only authors can delete their comments!");
+    }
   }
 
   useEffect(() => {
@@ -75,7 +95,7 @@ export const ArticleCard = () => {
   }, [isCommentListChanged]);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Sorry, something went wrong!</p>;
+  if (error) return <p>Sorry, something went wrong in ArticleCard!</p>;
 
   const date = new Date(article.created_at).toDateString();
   const commentsCount = comments.length;
@@ -108,23 +128,26 @@ export const ArticleCard = () => {
       </div>
       <div className="comments">
         <span className="comment-span">Comments: {commentsCount}</span>
-         {addCommentClicked ? 
-         <button onClick={clickAddCommentButton}>
-          Close Add Comment
-        </button> : <button onClick={clickAddCommentButton}>
-          Add Comment
-        </button> }
+        {addCommentClicked ? (
+          <button onClick={clickAddCommentButton}>Close Add Comment</button>
+        ) : (
+          <button onClick={clickAddCommentButton}>Add Comment</button>
+        )}
       </div>
       {addCommentClicked ? (
         <div className="add-comment">
           <form id="comment-form">
-             <p className="p">
+            <p className="p">
               <label className="label" htmlFor="username">
                 Username:
               </label>
             </p>
             <p className="p">
-              <input className="p" name="username" />
+              <input
+                className="p"
+                name="username"
+                defaultValue={loggedInUser}
+              />
             </p>
             <p className="p">
               <label className="label" htmlFor="comment">
@@ -156,7 +179,19 @@ export const ArticleCard = () => {
               <div className="comment-line">
                 <span className="comment-span">{commentDate}</span>
                 <span className="comment-span">Author: {comment.author}</span>
-                <button className="button">Delete Comment</button>
+                <button
+                  className="button"
+                  name={comment.author}
+                  value={comment.comment_id}
+                  onClick={deleteComment}
+                >
+                  Delete Comment
+                </button>
+                {authorMessage === "" ? (
+                  <span></span>
+                ) : (
+                  <span>{authorMessage}</span>
+                )}
               </div>
             </div>
           );
