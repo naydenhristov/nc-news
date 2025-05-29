@@ -41,3 +41,16 @@ export const addCommentByArticleId = (article_id, username, comment) => {
         return(err);
     });
 };
+
+export const getUsers = () => {
+    return ncNewsApi.get("/users/").then(({data}) => {
+       return(data.users);
+    });
+};
+
+export const deleteCommentById = (comment_id) => { 
+    return ncNewsApi.delete(`/comments/${comment_id}`)
+    .catch((err) => {
+        return(err);
+    });
+};

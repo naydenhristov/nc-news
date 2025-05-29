@@ -1,10 +1,13 @@
-import { BrowserRouter } from 'react-router';
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import { App } from './components/App.jsx';
+import { BrowserRouter } from "react-router";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import { App } from "./components/App.jsx";
+import { UserProvider } from "./contexts/User.jsx";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
   </BrowserRouter>
-)
+);
