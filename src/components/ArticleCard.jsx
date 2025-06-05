@@ -42,13 +42,12 @@ export const ArticleCard = () => {
     }
   }
 
-  function clickAddCommentButton() {
+  function clickAddCommentButton(event) {
     event.preventDefault();
-    let isClicked = addCommentClicked;
-    isClicked ? setAddCommentClicked(false) : setAddCommentClicked(true);
+    addCommentClicked ? setAddCommentClicked(false) : setAddCommentClicked(true);
   }
 
-  function submitComment() {
+  function submitComment(event) {
     event.preventDefault();
     const inputs = document.getElementById("comment-form").elements;
     const username = inputs["username"].value;
@@ -59,7 +58,7 @@ export const ArticleCard = () => {
     setAuthorMessage("");
   }
 
-  function deleteComment() {
+  function deleteComment(event) {
     event.preventDefault();
     const commentID = event.target.value;
     const commentAuthor = event.target.name;
